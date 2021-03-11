@@ -3,6 +3,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import * as express from 'express';
 import * as functions from 'firebase-functions';
+import { ValidationPipe } from '@nestjs/common';
 
 const server = express();
 
@@ -13,6 +14,7 @@ export const createNestServer = async (expressInstance: express.Express) => {
   );
 
   app.enableCors();
+  app.useGlobalPipes(new ValidationPipe());
 
   return app.init();
 };
