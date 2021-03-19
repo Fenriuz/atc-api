@@ -9,7 +9,12 @@ export class RestaurantsController {
 
   @Get()
   findAll() {
-    return this.restaurantsService.getAll();
+    return this.restaurantsService.findAll();
+  }
+
+  @Get(':id')
+  findById(@Param('id') id: string) {
+    return this.restaurantsService.findById(id);
   }
 
   @Post()

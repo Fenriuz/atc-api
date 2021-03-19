@@ -1,39 +1,23 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { RestaurantLocation } from '@ts/interfaces/restaurant-location';
+import { RestaurantImages } from '@ts/interfaces/RestaurantImages';
+import { Schedule } from '@ts/interfaces/schedule';
 import { Document } from 'mongoose';
 
 export type RestaurantDocument = Restaurant & Document;
 
-export class Schedule {
-  monday: Day;
-  tuesday: Day;
-  wednesday: Day;
-  thursday: Day;
-  friday: Day;
-  saturday: Day;
-  sunday: Day;
-}
-
-export class Day {
-  open: boolean;
-  hours: number[];
-}
-
 @Schema()
 export class Restaurant {
-  @Prop()
-  id?: string;
+  _id?: string;
 
   @Prop()
-  displayName: string;
+  displayName?: string;
 
   @Prop()
   description?: string;
 
-  //   @Prop()
-  //   images?: Images;
-
   @Prop()
-  schedule: Schedule;
+  schedule?: Schedule;
 
   @Prop({
     type: {
@@ -46,7 +30,14 @@ export class Restaurant {
       required: true,
     },
   })
-  locations: any;
+  locations?: RestaurantLocation;
+
+  @Prop({ default: false })
+  disabled?: boolean;
+
+  images?: RestaurantImages;
+
+  closed?: boolean;
 }
 
 export const RestaurantSchema = SchemaFactory.createForClass(Restaurant);

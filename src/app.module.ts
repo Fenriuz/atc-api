@@ -1,4 +1,6 @@
-import { RestaurantsModule } from './api/restaurants/restaurants.module';
+import { ScheduleHoursModule } from './shared/modules/schedule-hours.module';
+import { SharedModule } from './shared/shared.module';
+import { ServicesModule } from './services/services.module';
 import { ApiModule } from './api/api.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -8,7 +10,8 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
-    RestaurantsModule,
+    SharedModule,
+    ServicesModule,
     ApiModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI, {
