@@ -30,7 +30,7 @@ export class CreateRestaurantDto {
 
   @IsObject()
   @IsOptional()
-  readonly sections?: Section;
+  readonly sections?: Section[];
 
   @IsObject()
   @IsOptional()

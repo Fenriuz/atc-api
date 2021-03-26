@@ -1,4 +1,3 @@
-import { ScheduleHoursModule } from './shared/modules/schedule-hours.module';
 import { SharedModule } from './shared/shared.module';
 import { ServicesModule } from './services/services.module';
 import { ApiModule } from './api/api.module';

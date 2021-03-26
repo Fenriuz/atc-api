@@ -2,7 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { RestaurantLocation } from '@ts/interfaces/restaurant-location';
 import { RestaurantImages } from '@ts/interfaces/RestaurantImages';
 import { Schedule } from '@ts/interfaces/schedule';
-import { Document } from 'mongoose';
+import { Section } from '@ts/interfaces/section';
+import { Document, Schema as mongooseSchema } from 'mongoose';
 
 export type RestaurantDocument = Restaurant & Document;
 
@@ -34,6 +35,12 @@ export class Restaurant {
 
   @Prop({ default: false })
   disabled?: boolean;
+
+  @Prop()
+  categories?: string;
+
+  @Prop({ type: [{ type: mongooseSchema.Types.ObjectId, ref: 'Meal' }] })
+  sections?: Section[];
 
   images?: RestaurantImages;
 

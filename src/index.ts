@@ -24,4 +24,4 @@ createNestServer(server)
   .then((v) => console.log('Nest Ready'))
   .catch((err) => console.error('Nest broken', err));
 
-export const apiCustomers = functions.https.onRequest(server);
+export const adminApi = functions.https.onRequest(server);

@@ -5,7 +5,7 @@ export class AppService {
   getHello() {
     return {
       message: 'Hello world!',
-      api: 'A tu casa customers API',
+      api: 'A tu casa admin API',
       ENV: {
         environment: process.env.NODE_ENV,
         date: new Date().toISOString(),
