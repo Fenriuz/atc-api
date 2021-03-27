@@ -15,6 +15,7 @@ export const createNestServer = async (expressInstance: express.Express) => {
 
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
+  app.use(express.json({ limit: '50mb' }));
 
   return app.init();
 };
@@ -23,4 +24,4 @@ createNestServer(server)
   .then((v) => console.log('Nest Ready'))
   .catch((err) => console.error('Nest broken', err));
 
-export const apiCustomers = functions.https.onRequest(server);
+export const adminApi = functions.https.onRequest(server);

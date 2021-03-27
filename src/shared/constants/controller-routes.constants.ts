@@ -1,3 +1,4 @@
 export const controllerRoutes = {
-  restaurants: 'restuarants',
+  restaurants: 'restaurants',
+  meals: 'meals',
 };

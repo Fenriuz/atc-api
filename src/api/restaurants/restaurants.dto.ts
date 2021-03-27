@@ -1,24 +1,8 @@
-import { IsNotEmpty, IsString } from 'class-validator';
-
-export class Location {
-  readonly coordinates: [];
-}
-
-export class CreateDay {
-  readonly closed: boolean;
-  readonly hours: number[];
-}
-
-export class CreateSchedule {
-  readonly monday: CreateDay;
-  readonly tuesday: CreateDay;
-  readonly wednesday: CreateDay;
-  readonly thursday: CreateDay;
-  readonly friday: CreateDay;
-  readonly saturday: CreateDay;
-  readonly sunday: CreateDay;
-}
-
+import { RestaurantLocation } from '@ts/interfaces/restaurant-location';
+import { RestaurantImages } from '@ts/interfaces/RestaurantImages';
+import { Schedule } from '@ts/interfaces/schedule';
+import { Section } from '@ts/interfaces/section';
+import { IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
 export class CreateRestaurantDto {
   @IsString()
   @IsNotEmpty()
@@ -30,17 +14,27 @@ export class CreateRestaurantDto {
 
   @IsString()
   @IsNotEmpty()
-  readonly phone: string;
+  readonly phone?: string;
 
   @IsString()
   @IsNotEmpty()
-  readonly email: string;
+  readonly email?: string;
 
   @IsNotEmpty()
-  readonly locations: Location;
+  @IsObject()
+  readonly locations: RestaurantLocation;
 
   @IsNotEmpty()
-  readonly schedule: CreateSchedule;
+  @IsObject()
+  readonly schedule?: Schedule;
+
+  @IsObject()
+  @IsOptional()
+  readonly sections?: Section[];
+
+  @IsObject()
+  @IsOptional()
+  readonly images: RestaurantImages;
 }
 
 export class UpdateRestaurantDto {
@@ -61,8 +55,8 @@ export class UpdateRestaurantDto {
   readonly email: string;
 
   @IsNotEmpty()
-  readonly locations: Location;
+  readonly locations: RestaurantLocation;
 
   @IsNotEmpty()
-  readonly schedule: CreateSchedule;
+  readonly schedule: Schedule;
 }
