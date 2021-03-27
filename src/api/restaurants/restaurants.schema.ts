@@ -14,7 +14,7 @@ export class Restaurant {
   @Prop()
   displayName?: string;
 
-  @Prop()
+  @Prop({ type: Number })
   description?: string;
 
   @Prop()

@@ -31,9 +31,7 @@ export class RestaurantsService {
 
   async findAll() {
     const records = await this.restaurantsDao.findAll();
-    const restaurants = records.map((restaurant) =>
-      this.getExtraData(restaurant),
-    );
+    const restaurants = records.map((restaurant) => this.getExtraData(restaurant));
 
     return restaurants;
   }
@@ -48,16 +46,8 @@ export class RestaurantsService {
   async create({ images, ...restaurant }: CreateRestaurantDto) {
     const createdRestaurant = await this.restaurantsDao.create(restaurant);
 
-    this._cloudinaryService.upload(
-      images?.cover,
-      'restaurantCover',
-      createdRestaurant?._id,
-    );
-    this._cloudinaryService.upload(
-      images?.logo,
-      'restaurantLogo',
-      createdRestaurant?._id,
-    );
+    this._cloudinaryService.upload(images?.cover, 'restaurantCover', createdRestaurant?._id);
+    this._cloudinaryService.upload(images?.logo, 'restaurantLogo', createdRestaurant?._id);
 
     return createdRestaurant;
   }

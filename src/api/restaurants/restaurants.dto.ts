@@ -2,7 +2,7 @@ import { RestaurantLocation } from '@ts/interfaces/restaurant-location';
 import { RestaurantImages } from '@ts/interfaces/RestaurantImages';
 import { Schedule } from '@ts/interfaces/schedule';
 import { Section } from '@ts/interfaces/section';
-import { IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
 export class CreateRestaurantDto {
   @IsString()
   @IsNotEmpty()
@@ -38,6 +38,10 @@ export class CreateRestaurantDto {
 }
 
 export class UpdateRestaurantDto {
+  @IsMongoId()
+  @IsNotEmpty()
+  readonly _id: string;
+
   @IsString()
   @IsNotEmpty()
   readonly displayName: string;

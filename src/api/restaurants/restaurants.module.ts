@@ -6,6 +6,7 @@ import { Restaurant, RestaurantSchema } from './restaurants.schema';
 import { RestaurantsDao } from './restaurants.dao';
 import { CloudinaryModule } from '@services/cloudinary/cloudinary.module';
 import { ScheduleHoursModule } from '@shared/modules/schedule-hours.module';
+import { mongoCollections } from '@shared/constants/mongo-collections.constants';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { ScheduleHoursModule } from '@shared/modules/schedule-hours.module';
       {
         name: Restaurant.name,
         schema: RestaurantSchema,
-        collection: 'restaurants',
+        collection: mongoCollections.restaurants,
       },
     ]),
     CloudinaryModule,

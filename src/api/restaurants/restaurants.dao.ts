@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { httpErrors } from '@shared/constants/http-errors.constants';
 import { Model } from 'mongoose';
 import { Restaurant, RestaurantDocument } from './restaurants.schema';
 
@@ -14,20 +15,32 @@ export class RestaurantsDao {
     try {
       return await this.restaurantModel.find().exec();
     } catch (dbErr) {
-      return;
+      throw new HttpException(httpErrors.findAllRestaurants, HttpStatus.CONFLICT);
     }
   }
 
   async findById(id: string): Promise<RestaurantDocument> {
-    return await this.restaurantModel.findById(id).exec();
+    try {
+      return await this.restaurantModel.findById(id).exec();
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.findAllRestaurants, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async create(restaurant: Restaurant): Promise<RestaurantDocument> {
-    const newRestaurant = new this.restaurantModel(restaurant);
-    return await newRestaurant.save();
+    try {
+      const newRestaurant = new this.restaurantModel(restaurant);
+      return await newRestaurant.save();
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.createRestaurant, HttpStatus.CONFLICT);
+    }
   }
 
-  async update(restaurant: Restaurant) {
-    return 'abr';
+  async update({ _id, ...restaurant }: Restaurant) {
+    try {
+      return await this.restaurantModel.findByIdAndUpdate(_id, restaurant);
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.createRestaurant, HttpStatus.CONFLICT);
+    }
   }
 }

@@ -8,10 +8,7 @@ import { ValidationPipe } from '@nestjs/common';
 const server = express();
 
 export const createNestServer = async (expressInstance: express.Express) => {
-  const app = await NestFactory.create(
-    AppModule,
-    new ExpressAdapter(expressInstance),
-  );
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressInstance));
 
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());

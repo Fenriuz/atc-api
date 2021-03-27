@@ -3,5 +3,8 @@
     "cSpell.words": [
         "Cloudinary",
         "nestjs"
-    ]
+    ],
+    "eslint.options": {
+    "max-lines": 100
+    }
 }
