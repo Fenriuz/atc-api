@@ -1,6 +1,6 @@
-export const controllerRoutes = {
+export const mongoCollections = {
   restaurants: 'restaurants',
-  meals: 'meals',
   sections: 'sections',
+  meals: 'meals',
   categories: 'categories',
 };

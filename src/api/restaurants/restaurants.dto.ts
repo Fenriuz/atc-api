@@ -28,9 +28,9 @@ export class CreateRestaurantDto {
   @IsObject()
   readonly schedule?: Schedule;
 
-  @IsObject()
-  @IsOptional()
-  readonly sections?: Section[];
+  // @IsObject()
+  // @IsOptional()
+  // readonly sections?: Section[];
 
   @IsObject()
   @IsOptional()
@@ -39,24 +39,30 @@ export class CreateRestaurantDto {
 
 export class UpdateRestaurantDto {
   @IsString()
+  @IsOptional()
   @IsNotEmpty()
-  readonly displayName: string;
+  readonly displayName?: string;
 
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  readonly description: string;
+  readonly description?: string;
 
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  readonly phone: string;
+  readonly phone?: string;
 
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  readonly email: string;
+  readonly email?: string;
 
+  @IsOptional()
   @IsNotEmpty()
-  readonly locations: RestaurantLocation;
+  readonly locations?: RestaurantLocation;
 
+  @IsOptional()
   @IsNotEmpty()
-  readonly schedule: Schedule;
+  readonly schedule?: Schedule;
 }

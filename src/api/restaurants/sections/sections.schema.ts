@@ -1,17 +1,17 @@
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Meal } from '../meals/meals.schema';
 import { Schema as mongooseSchema, Document } from 'mongoose';
+import { Meal } from '../../meals/meals.schema';
 
 export type SectionDocument = Section & Document;
 
 export class Section {
-  _id: string;
+  _id?: string;
 
   @Prop()
-  displayName: string;
+  displayName?: string;
 
   @Prop()
-  description: string;
+  description?: string;
 
   @Prop({ type: [{ type: mongooseSchema.Types.ObjectId, ref: 'Meal' }] })
   meals?: Meal[];

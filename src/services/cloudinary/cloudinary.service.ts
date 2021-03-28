@@ -44,11 +44,7 @@ export class CloudinaryService {
     });
     this.v2 = cloudinary.v2;
   }
-  async upload(
-    file: string,
-    options: 'restaurantCover' | 'restaurantLogo',
-    id: string,
-  ) {
+  async upload(file: string, options: 'restaurantCover' | 'restaurantLogo', id: string) {
     try {
       return await this.v2.uploader.upload(file, uploadOptions(id, options));
     } catch (e) {
