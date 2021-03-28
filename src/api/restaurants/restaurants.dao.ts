@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { httpErrors } from '@shared/constants/http-errors.constants';
-import { Model } from 'mongoose';
+import { LeanDocument, Model } from 'mongoose';
 import { Restaurant, RestaurantDocument } from './restaurants.schema';
+import { CreateSectionDto, UpdateSectionDto } from './sections/sections.dto';
 
 @Injectable()
 export class RestaurantsDao {
@@ -21,8 +22,9 @@ export class RestaurantsDao {
 
   async findById(id: string): Promise<RestaurantDocument> {
     try {
-      return await this.restaurantModel.findById(id).exec();
+      return await this.restaurantModel.findById(id);
     } catch (dbErr) {
+      console.log(dbErr);
       throw new HttpException(httpErrors.findAllRestaurants, HttpStatus.BAD_REQUEST);
     }
   }
@@ -36,11 +38,47 @@ export class RestaurantsDao {
     }
   }
 
-  async update({ _id, ...restaurant }: Restaurant) {
+  async update(id: string, restaurant: Restaurant) {
     try {
-      return await this.restaurantModel.findByIdAndUpdate(_id, restaurant);
+      return await this.restaurantModel.findByIdAndUpdate(id, restaurant, { new: true });
     } catch (dbErr) {
-      throw new HttpException(httpErrors.createRestaurant, HttpStatus.CONFLICT);
+      throw new HttpException(httpErrors.updateRestaurant, HttpStatus.CONFLICT);
+    }
+  }
+
+  async createSection(restaurantId: string, section: CreateSectionDto) {
+    try {
+      return await this.restaurantModel.findByIdAndUpdate(
+        restaurantId,
+        {
+          $push: {
+            sections: section,
+          },
+        },
+        { new: true },
+      );
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.createSection, HttpStatus.CONFLICT);
+    }
+  }
+
+  async updateSection(
+    restaurantId: string,
+    currentSection: string,
+    newSection: LeanDocument<UpdateSectionDto>[],
+  ) {
+    try {
+      return await this.restaurantModel.updateOne(
+        { _id: restaurantId, 'sections.displayName': currentSection },
+        {
+          $set: {
+            sections: newSection,
+          },
+        },
+        { new: true },
+      );
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.updateSection, HttpStatus.CONFLICT);
     }
   }
 }

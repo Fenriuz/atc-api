@@ -14,8 +14,11 @@ export class Restaurant {
   @Prop()
   displayName?: string;
 
-  @Prop({ type: Number })
+  @Prop()
   description?: string;
+
+  @Prop()
+  phone?: string;
 
   @Prop()
   schedule?: Schedule;
@@ -39,7 +42,7 @@ export class Restaurant {
   @Prop()
   categories?: string;
 
-  @Prop({ type: [{ type: mongooseSchema.Types.ObjectId, ref: 'Meal' }] })
+  @Prop()
   sections?: Section[];
 
   images?: RestaurantImages;

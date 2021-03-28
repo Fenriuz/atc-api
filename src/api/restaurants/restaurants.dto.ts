@@ -2,7 +2,7 @@ import { RestaurantLocation } from '@ts/interfaces/restaurant-location';
 import { RestaurantImages } from '@ts/interfaces/RestaurantImages';
 import { Schedule } from '@ts/interfaces/schedule';
 import { Section } from '@ts/interfaces/section';
-import { IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
 export class CreateRestaurantDto {
   @IsString()
   @IsNotEmpty()
@@ -28,9 +28,9 @@ export class CreateRestaurantDto {
   @IsObject()
   readonly schedule?: Schedule;
 
-  @IsObject()
-  @IsOptional()
-  readonly sections?: Section[];
+  // @IsObject()
+  // @IsOptional()
+  // readonly sections?: Section[];
 
   @IsObject()
   @IsOptional()
@@ -38,29 +38,31 @@ export class CreateRestaurantDto {
 }
 
 export class UpdateRestaurantDto {
-  @IsMongoId()
+  @IsString()
+  @IsOptional()
   @IsNotEmpty()
-  readonly _id: string;
+  readonly displayName?: string;
 
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  readonly displayName: string;
+  readonly description?: string;
 
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  readonly description: string;
+  readonly phone?: string;
 
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  readonly phone: string;
+  readonly email?: string;
 
-  @IsString()
+  @IsOptional()
   @IsNotEmpty()
-  readonly email: string;
+  readonly locations?: RestaurantLocation;
 
+  @IsOptional()
   @IsNotEmpty()
-  readonly locations: RestaurantLocation;
-
-  @IsNotEmpty()
-  readonly schedule: Schedule;
+  readonly schedule?: Schedule;
 }
