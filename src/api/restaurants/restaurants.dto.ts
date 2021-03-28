@@ -1,7 +1,8 @@
 import { RestaurantLocation } from '@ts/interfaces/restaurant-location';
 import { RestaurantImages } from '@ts/interfaces/RestaurantImages';
 import { Schedule } from '@ts/interfaces/schedule';
-import { IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
+import { Category } from '../categories/category.schema';
 export class CreateRestaurantDto {
   @IsString()
   @IsNotEmpty()
@@ -19,7 +20,11 @@ export class CreateRestaurantDto {
   @IsNotEmpty()
   readonly email?: string;
 
-  @IsNotEmpty()
+  @IsArray()
+  @IsOptional()
+  categories?: Category[];
+
+  @IsOptional()
   @IsObject()
   readonly locations: RestaurantLocation;
 
@@ -53,8 +58,12 @@ export class UpdateRestaurantDto {
   @IsNotEmpty()
   readonly email?: string;
 
+  @IsArray()
   @IsOptional()
-  @IsNotEmpty()
+  categories?: Category[];
+
+  @IsOptional()
+  @IsObject()
   readonly locations?: RestaurantLocation;
 
   @IsOptional()
