@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Meal } from '../../meals/meals.schema';
 
 export class CreateSectionDto {

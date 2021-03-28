@@ -3,14 +3,10 @@ import { controllerRoutes } from '@shared/constants/controller-routes.constants'
 import { CreateRestaurantDto, UpdateRestaurantDto } from './restaurants.dto';
 import { RestaurantsService } from './restaurants.service';
 import { CreateSectionDto, UpdateSectionDto } from './sections/sections.dto';
-import { SectionsService } from './sections/sections.service';
 
 @Controller(controllerRoutes.restaurants)
 export class RestaurantsController {
-  constructor(
-    private restaurantsService: RestaurantsService,
-    private sectionsService: SectionsService,
-  ) {}
+  constructor(private restaurantsService: RestaurantsService) {}
 
   @Get()
   findRestaurants() {

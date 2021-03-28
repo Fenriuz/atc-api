@@ -2,12 +2,9 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { CloudinaryService } from '@services/cloudinary/cloudinary.service';
 import { cloudinaryFolders } from '@shared/constants/cloudinary.constants';
 import { httpErrors } from '@shared/constants/http-errors.constants';
-import { ScheduleHoursService } from '@shared/services/schedule-hours.service';
 import { RestaurantsDao } from './restaurants.dao';
 import { CreateRestaurantDto, UpdateRestaurantDto } from './restaurants.dto';
-import { RestaurantDocument } from './restaurants.schema';
 import { CreateSectionDto, UpdateSectionDto } from './sections/sections.dto';
-import { SectionsService } from './sections/sections.service';
 
 @Injectable()
 export class RestaurantsService {
@@ -15,36 +12,35 @@ export class RestaurantsService {
     private readonly restaurantsDao: RestaurantsDao,
     @Inject(CloudinaryService)
     private readonly _cloudinaryService: CloudinaryService,
-    private readonly scheduleHoursService: ScheduleHoursService,
-    private readonly sectionService: SectionsService,
   ) {}
 
-  private getExtraData(restaurantData: RestaurantDocument) {
-    const { schedule, ...restaurant } = restaurantData.toJSON();
+  getRestaurantImages(id: string) {
     const URL = cloudinaryFolders.url;
 
     const images = {
-      cover: `${URL}/${cloudinaryFolders.restaurantCovers}/${restaurant?._id}`,
-      logo: `${URL}/${cloudinaryFolders.restaurantLogos}/${restaurant?._id}`,
+      cover: `${URL}/${cloudinaryFolders.restaurantCovers}/${id}`,
+      logo: `${URL}/${cloudinaryFolders.restaurantLogos}/${id}`,
     };
 
-    const closed = this.scheduleHoursService.isClosed(schedule);
-
-    return { closed, images, ...restaurant };
+    return images;
   }
 
   async findAll() {
-    const restaurants = await this.restaurantsDao.findAll();
-    // const restaurants = records.map((restaurant) => this.getExtraData(restaurant));
+    const records = await this.restaurantsDao.findAll();
+    const restaurants = records.map((restaurant) => {
+      const images = this.getRestaurantImages(restaurant?._id);
+
+      return { images, ...restaurant.toJSON() };
+    });
 
     return restaurants;
   }
 
   async findById(id: string) {
     const restaurant = await this.restaurantsDao.findById(id);
-    // const restaurant = this.getExtraData(record);
+    const images = this.getRestaurantImages(id);
 
-    return restaurant;
+    return { images, ...restaurant.toJSON() };
   }
 
   async create({ images, ...restaurant }: CreateRestaurantDto) {
@@ -53,11 +49,25 @@ export class RestaurantsService {
     this._cloudinaryService.upload(images?.cover, 'restaurantCover', createdRestaurant?._id);
     this._cloudinaryService.upload(images?.logo, 'restaurantLogo', createdRestaurant?._id);
 
-    return createdRestaurant;
+    const restaurantImages = this.getRestaurantImages(createdRestaurant?._id);
+
+    return { restaurantImages, ...createdRestaurant.toJSON() };
   }
 
-  async update(id: string, restaurant: UpdateRestaurantDto) {
-    return this.restaurantsDao.update(id, restaurant);
+  async update(id: string, { images, ...restaurant }: UpdateRestaurantDto) {
+    const editedRestaurant = await this.restaurantsDao.update(id, restaurant);
+
+    if (images?.cover) {
+      this._cloudinaryService.upload(images?.cover, 'restaurantCover', id);
+    }
+
+    if (images?.logo) {
+      this._cloudinaryService.upload(images?.logo, 'restaurantLogo', id);
+    }
+
+    const restaurantImages = this.getRestaurantImages(id);
+
+    return { restaurantImages, ...editedRestaurant.toJSON() };
   }
 
   async createSection(restaurantId: string, section: CreateSectionDto) {
