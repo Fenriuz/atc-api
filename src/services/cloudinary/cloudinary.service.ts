@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Cloudinary } from './cloudinary.provider';
 import * as CloudinaryLib from 'cloudinary';
-import { UploadApiOptions } from 'cloudinary';
 import { cloudinaryFolders } from '@shared/constants/cloudinary.constants';
 
 const uploadOptions = (id: string, selectedOption: string) => {
