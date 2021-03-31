@@ -1,5 +1,5 @@
 import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { Meal } from '../../meals/meals.schema';
+import { Meal } from '../../meals/meal.schema';
 
 export class CreateSectionDto {
   @IsString()
