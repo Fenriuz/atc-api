@@ -1,4 +1,4 @@
-import { Meal } from 'src/api/meals/meals.schema';
+import { Meal } from 'src/api/meals/meal.schema';
 
 export class Section {
   readonly displayName?: string;

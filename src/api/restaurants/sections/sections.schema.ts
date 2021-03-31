@@ -1,6 +1,6 @@
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Schema as mongooseSchema, Document } from 'mongoose';
-import { Meal } from '../../meals/meals.schema';
+import { Meal } from '../../meals/meal.schema';
 
 export type SectionDocument = Section & Document;
 

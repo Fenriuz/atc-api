@@ -1,9 +1,11 @@
 import { MealsService } from './meals.service';
 import { MealsController } from './meals.controller';
 import { Module } from '@nestjs/common';
-import { Meal, MealSchema } from './meals.schema';
+import { Meal, MealSchema } from './meal.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { mongoCollections } from '@shared/constants/mongo-collections.constants';
+import { MealsDao } from './meals.dao';
+import { CloudinaryModule } from '@services/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -14,8 +16,9 @@ import { mongoCollections } from '@shared/constants/mongo-collections.constants'
         collection: mongoCollections.meals,
       },
     ]),
+    CloudinaryModule,
   ],
   controllers: [MealsController],
-  providers: [MealsService],
+  providers: [MealsService, MealsDao],
 })
 export class MealsModule {}

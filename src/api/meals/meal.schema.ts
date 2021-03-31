@@ -6,8 +6,7 @@ export type MealDocument = Meal & Document;
 
 @Schema()
 export class Meal {
-  @Prop()
-  id?: string;
+  _id?: string;
 
   @Prop()
   displayName?: string;
@@ -18,8 +17,8 @@ export class Meal {
   @Prop({ type: mongooseSchema.Types.ObjectId, ref: 'Restaurant' })
   restaurant?: string;
 
-  @Prop()
-  price?: number;
+  @Prop({ type: mongooseSchema.Types.Decimal128 })
+  price?: string;
 
   @Prop()
   complements?: Complement[];
