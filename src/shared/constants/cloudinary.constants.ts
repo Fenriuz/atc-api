@@ -8,4 +8,5 @@ export const cloudinaryFolders = {
     return this.restaurants + '/logos';
   },
   meals: 'meals',
+  users: 'users',
 };

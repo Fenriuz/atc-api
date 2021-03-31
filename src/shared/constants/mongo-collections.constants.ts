@@ -3,4 +3,5 @@ export const mongoCollections = {
   sections: 'sections',
   meals: 'meals',
   categories: 'categories',
+  users: 'users',
 };

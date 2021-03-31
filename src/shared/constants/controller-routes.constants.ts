@@ -3,4 +3,5 @@ export const controllerRoutes = {
   meals: 'meals',
   sections: 'sections',
   categories: 'categories',
+  users: 'users',
 };

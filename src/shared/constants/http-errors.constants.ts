@@ -20,4 +20,9 @@ export const httpErrors = {
   findOneCategory: `${prefix}could not get the category`,
   createCategory: `${prefix}the category could not be created`,
   updateCategory: `${prefix}the category could not be updated`,
+
+  findAllUsers: `${prefix}could not get the users`,
+  findOneUser: `${prefix}could not get the user`,
+  createUser: `${prefix}the user could not be created`,
+  updateUser: `${prefix}the user could not be updated`,
 };
