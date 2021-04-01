@@ -12,9 +12,7 @@ export class MealsService {
   getMealImage(id: string) {
     const URL = cloudinaryFolders.url;
 
-    const image = {
-      image: `${URL}/${cloudinaryFolders.meals}/${id}`,
-    };
+    const image = `${URL}/${cloudinaryFolders.meals}/${id}`;
 
     return image;
   }
