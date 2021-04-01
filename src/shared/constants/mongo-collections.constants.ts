@@ -4,4 +4,5 @@ export const mongoCollections = {
   meals: 'meals',
   categories: 'categories',
   users: 'users',
+  tokens: 'tokens',
 };

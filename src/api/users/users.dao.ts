@@ -25,12 +25,25 @@ export class UsersDao {
     }
   }
 
+  async findOne(email?: string, phone?: string) {
+    try {
+      return await this.userModel
+        .findOne({
+          $or: [{ email }, { phone }],
+        })
+        .select(['+password']);
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.findOneUser, HttpStatus.NOT_FOUND);
+    }
+  }
+
   async create(user: User) {
     try {
       return await this.userModel.create(user);
     } catch (dbErr) {
       if (dbErr?.code === 11000) {
-        throw new HttpException('ATC error: duplicated email', HttpStatus.CONFLICT);
+        const key = Object.keys(dbErr?.keyValue);
+        throw new HttpException(`ATC error: duplicated ${key}`, HttpStatus.CONFLICT);
       }
 
       throw new HttpException(httpErrors.createUser, HttpStatus.INTERNAL_SERVER_ERROR);

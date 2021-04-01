@@ -25,4 +25,11 @@ export const httpErrors = {
   findOneUser: `${prefix}could not get the user`,
   createUser: `${prefix}the user could not be created`,
   updateUser: `${prefix}the user could not be updated`,
+  userDisabled: `${prefix}user disabled`,
+
+  incorrectUserOrPassword: `${prefix} user or password incorrect`,
+  disabledUser: `${prefix}this user is disabled`,
+  createToken: `${prefix}the token not be created`,
+  verifyRefreshToken: `${prefix}the refresh token is invalid`,
+  logout: `${prefix}logout failed`,
 };

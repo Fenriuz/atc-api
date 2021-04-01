@@ -10,16 +10,16 @@ export class User {
   @Prop()
   readonly displayName?: string;
 
-  @Prop()
+  @Prop({ unique: true, index: true })
   readonly phone?: string;
 
-  @Prop({ unique: true })
+  @Prop({ unique: true, index: true })
   readonly email?: string;
 
   @Prop({ select: false })
   readonly password?: string;
 
-  @Prop()
+  @Prop({ default: false })
   readonly disabled?: boolean;
 }
 

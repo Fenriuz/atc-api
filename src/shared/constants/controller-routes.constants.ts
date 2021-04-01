@@ -4,4 +4,5 @@ export const controllerRoutes = {
   sections: 'sections',
   categories: 'categories',
   users: 'users',
+  authentication: 'authentication',
 };
