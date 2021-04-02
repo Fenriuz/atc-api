@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { httpErrors } from '@shared/constants/http-errors.constants';
-import { LeanDocument, Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { Restaurant, RestaurantDocument } from './restaurants.schema';
 import { CreateSectionDto, UpdateSectionDto } from './sections/sections.dto';
 @Injectable()
@@ -59,8 +59,10 @@ export class RestaurantsDao {
           path: 'sections.meals',
           select: 'displayName description disabled',
         })
-        .select('sections');
-    } catch (dbErr) {}
+        .select({ sections: { $elemMatch: { displayName: sectionName } } });
+    } catch (dbErr) {
+      console.log(dbErr);
+    }
   }
 
   async createSection(restaurantId: string, section: CreateSectionDto) {
