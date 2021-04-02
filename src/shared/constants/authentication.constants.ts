@@ -1,4 +1,4 @@
 export const authConstants = {
-  tokenExpiration: '60 s',
+  tokenExpiration: '1 days',
   publicRoutes: 'isPublic',
 };
