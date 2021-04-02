@@ -61,7 +61,7 @@ export class RestaurantsDao {
         })
         .select({ sections: { $elemMatch: { displayName: sectionName } } });
     } catch (dbErr) {
-      console.log(dbErr);
+      throw new HttpException(httpErrors.findOneSection, HttpStatus.CONFLICT);
     }
   }
 
