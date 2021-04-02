@@ -33,7 +33,6 @@ export class MealsDao {
 
       return await newMeal.save();
     } catch (dbErr) {
-      console.log(dbErr);
       throw new HttpException(httpErrors.createMeal, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }

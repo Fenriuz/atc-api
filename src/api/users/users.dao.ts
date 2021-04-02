@@ -20,7 +20,6 @@ export class UsersDao {
     try {
       return await this.userModel.findById(id);
     } catch (dbErr) {
-      console.log(dbErr);
       throw new HttpException(httpErrors.findOneUser, HttpStatus.NOT_FOUND);
     }
   }

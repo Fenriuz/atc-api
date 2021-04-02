@@ -43,7 +43,21 @@ export class Restaurant {
   @Prop({ type: [{ type: mongooseSchema.Types.ObjectId, ref: 'Category' }] })
   categories?: Category[];
 
-  @Prop()
+  @Prop({
+    type: [
+      {
+        displayName: String,
+        description: String,
+        disabled: Boolean,
+        meals: [
+          {
+            type: mongooseSchema.Types.ObjectId,
+            ref: 'Meal',
+          },
+        ],
+      },
+    ],
+  })
   sections?: Section[];
 
   images?: RestaurantImages;

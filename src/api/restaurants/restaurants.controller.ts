@@ -33,12 +33,20 @@ export class RestaurantsController {
     return this.restaurantsService.createSection(restaurantId, section);
   }
 
+  @Get(':restaurantId/sections/:currentSection')
+  findSection(
+    @Param('restaurantId') restaurantId: string,
+    @Param('currentSection') currentSection: string,
+  ) {
+    return this.restaurantsService.findSection(restaurantId, currentSection);
+  }
+
   @Put(':restaurantId/sections/:currentSection')
   updateSection(
     @Param('restaurantId') restaurantId: string,
     @Param('currentSection') currentSection: string,
     @Body() newSection: UpdateSectionDto,
   ) {
-    return this.restaurantsService.updateSection(restaurantId, currentSection, [newSection]);
+    return this.restaurantsService.updateSection(restaurantId, currentSection, newSection);
   }
 }

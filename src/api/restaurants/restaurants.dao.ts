@@ -30,7 +30,6 @@ export class RestaurantsDao {
     try {
       return await this.restaurantModel.findById(id).populate(this.populateCategories);
     } catch (dbErr) {
-      console.log(dbErr);
       throw new HttpException(httpErrors.findAllRestaurants, HttpStatus.BAD_REQUEST);
     }
   }
@@ -52,6 +51,18 @@ export class RestaurantsDao {
     }
   }
 
+  async findSection(restaurantId: string, sectionName: string) {
+    try {
+      return await this.restaurantModel
+        .findById(restaurantId)
+        .populate({
+          path: 'sections.meals',
+          select: 'displayName description disabled',
+        })
+        .select('sections');
+    } catch (dbErr) {}
+  }
+
   async createSection(restaurantId: string, section: CreateSectionDto) {
     try {
       return await this.restaurantModel.findByIdAndUpdate(
@@ -68,17 +79,16 @@ export class RestaurantsDao {
     }
   }
 
-  async updateSection(
-    restaurantId: string,
-    currentSection: string,
-    newSection: LeanDocument<UpdateSectionDto>[],
-  ) {
+  async updateSection(restaurantId: string, currentSection: string, newSection: UpdateSectionDto) {
     try {
       return await this.restaurantModel.updateOne(
         { _id: restaurantId, 'sections.displayName': currentSection },
         {
           $set: {
-            sections: newSection,
+            'sections.$.displayName': newSection?.displayName,
+            'sections.$.description': newSection?.description,
+            'sections.$.disabled': newSection?.disabled,
+            'sections.$.meals': newSection?.meals,
           },
         },
         { new: true },

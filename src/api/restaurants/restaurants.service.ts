@@ -70,6 +70,10 @@ export class RestaurantsService {
     return { restaurantImages, ...editedRestaurant.toJSON() };
   }
 
+  async findSection(restaurantId: string, sectionName: string) {
+    return await this.restaurantsDao.findSection(restaurantId, sectionName);
+  }
+
   async createSection(restaurantId: string, section: CreateSectionDto) {
     const record = await this.restaurantsDao.createSection(restaurantId, section);
     if (!record) {
@@ -79,11 +83,7 @@ export class RestaurantsService {
     return record;
   }
 
-  async updateSection(
-    restaurantId: string,
-    currentSection: string,
-    newSection: UpdateSectionDto[],
-  ) {
+  async updateSection(restaurantId: string, currentSection: string, newSection: UpdateSectionDto) {
     const record = await this.restaurantsDao.updateSection(
       restaurantId,
       currentSection,
