@@ -5,4 +5,5 @@ export const controllerRoutes = {
   categories: 'categories',
   users: 'users',
   authentication: 'authentication',
+  deliveryMen: 'deliveryMen',
 };

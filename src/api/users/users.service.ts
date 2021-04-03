@@ -20,9 +20,7 @@ export class UsersService {
   getUserPhoto(id: string) {
     const URL = cloudinaryFolders.url;
 
-    const image = {
-      image: `${URL}/${cloudinaryFolders.users}/${id}`,
-    };
+    const image = `${URL}/${cloudinaryFolders.users}/${id}`;
 
     return image;
   }

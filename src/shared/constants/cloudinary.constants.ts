@@ -9,4 +9,5 @@ export const cloudinaryFolders = {
   },
   meals: 'meals',
   users: 'users',
+  deliveryMen: 'deliveryMen',
 };

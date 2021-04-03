@@ -5,4 +5,5 @@ export const mongoCollections = {
   categories: 'categories',
   users: 'users',
   tokens: 'tokens',
+  deliveryMen: 'delivery-men',
 };

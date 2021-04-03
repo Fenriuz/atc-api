@@ -45,7 +45,18 @@ const uploadOptions = (id: string, selectedOption: string) => {
       crop: 'scale',
       folder: cloudinaryFolders.users,
       public_id: id,
-      format: 'png',
+      format: 'jpeg',
+    },
+    deliveryMan: {
+      overwrite: true,
+      invalidate: true,
+      quality: 'auto',
+      width: 650,
+      height: 650,
+      crop: 'scale',
+      folder: cloudinaryFolders.deliveryMen,
+      public_id: id,
+      format: 'jpeg',
     },
   };
   return options[selectedOption];
@@ -67,7 +78,7 @@ export class CloudinaryService {
   }
   async upload(
     file: string,
-    options: 'restaurantCover' | 'restaurantLogo' | 'meal' | 'user',
+    options: 'restaurantCover' | 'restaurantLogo' | 'meal' | 'user' | 'deliveryMan',
     id: string,
   ) {
     try {

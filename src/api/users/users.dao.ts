@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { databaseErrors } from '@shared/constants/database-errors.constants';
 import { httpErrors } from '@shared/constants/http-errors.constants';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './user.schema';
@@ -40,12 +41,10 @@ export class UsersDao {
     try {
       return await this.userModel.create(user);
     } catch (dbErr) {
-      if (dbErr?.code === 11000) {
-        const key = Object.keys(dbErr?.keyValue);
-        throw new HttpException(`ATC error: duplicated ${key}`, HttpStatus.CONFLICT);
-      }
-
-      throw new HttpException(httpErrors.createUser, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        databaseErrors(dbErr, httpErrors.createUser),
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -53,11 +52,10 @@ export class UsersDao {
     try {
       return await this.userModel.findByIdAndUpdate(id, user, { new: true });
     } catch (dbErr) {
-      if (dbErr?.code === 11000) {
-        throw new HttpException('ATC error: duplicated email', HttpStatus.CONFLICT);
-      }
-
-      throw new HttpException(httpErrors.updateUser, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        databaseErrors(dbErr, httpErrors.updateUser),
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

@@ -32,4 +32,9 @@ export const httpErrors = {
   createToken: `${prefix}the token not be created`,
   verifyRefreshToken: `${prefix}the refresh token is invalid`,
   logout: `${prefix}logout failed`,
+
+  findAllDeliveryMen: `${prefix}could not get the delivery men`,
+  findOneDeliveryMan: `${prefix}could not get the delivery man`,
+  createDeliveryMan: `${prefix}the delivery man could not be created`,
+  updateDeliveryMan: `${prefix}the delivery man could not be updated`,
 };
