@@ -10,7 +10,10 @@ const server = express();
 export const createNestServer = async (expressInstance: express.Express) => {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressInstance));
 
-  app.enableCors();
+  app.enableCors({
+    origin: '*',
+  });
+
   app.useGlobalPipes(new ValidationPipe());
   app.use(express.json({ limit: '50mb' }));
 

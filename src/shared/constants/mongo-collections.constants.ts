@@ -6,4 +6,5 @@ export const mongoCollections = {
   users: 'users',
   tokens: 'tokens',
   deliveryMen: 'delivery-men',
+  orders: 'orders',
 };
