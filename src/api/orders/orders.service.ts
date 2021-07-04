@@ -17,4 +17,8 @@ export class OrdersService {
   assignDeliveryMan(order: string, deliveryMan: DeliveryManForOrderDto) {
     return this.ordersDao.assignDeliveryMan(order, deliveryMan);
   }
+
+  deliveredOrder(order: string) {
+    return this.ordersDao.deliveredOrder(order);
+  }
 }

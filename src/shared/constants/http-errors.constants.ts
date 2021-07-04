@@ -40,4 +40,6 @@ export const httpErrors = {
 
   findAllOrders: `${prefix}could not get the orders`,
   findOneOrder: `${prefix}could not get the order`,
+  assignOrder: `${prefix} could not assign delivery man`,
+  deliveredOrder: `${prefix} could not delivered order`,
 };

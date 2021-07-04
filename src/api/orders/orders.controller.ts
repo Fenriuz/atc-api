@@ -21,4 +21,9 @@ export class OrdersController {
   assignDeliveryMan(@Param('id') order: string, @Body() deliveryMan: DeliveryManForOrderDto) {
     return this.ordersService.assignDeliveryMan(order, deliveryMan);
   }
+
+  @Put(':id/delivered')
+  delivered(@Param('id') order: string) {
+    return this.ordersService.deliveredOrder(order);
+  }
 }

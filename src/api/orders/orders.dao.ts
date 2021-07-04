@@ -30,6 +30,18 @@ export class OrdersDao {
       return await this.orderModel.findByIdAndUpdate(order, {
         deliveryMan: deliveryMan.id,
       });
-    } catch (dbErr) {}
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.findOneOrder, HttpStatus.CONFLICT);
+    }
+  }
+
+  async deliveredOrder(order) {
+    try {
+      return await this.orderModel.findByIdAndUpdate(order, {
+        delivered: true,
+      });
+    } catch (dbErr) {
+      throw new HttpException(httpErrors.findOneOrder, HttpStatus.CONFLICT);
+    }
   }
 }

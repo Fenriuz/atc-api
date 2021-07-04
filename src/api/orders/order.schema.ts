@@ -36,6 +36,9 @@ export class Order {
 
   @Prop({ type: Boolean, default: false })
   readonly cancelled?: boolean;
+
+  @Prop({ type: Boolean, default: false })
+  readonly delivered?: boolean;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
