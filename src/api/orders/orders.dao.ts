@@ -25,23 +25,31 @@ export class OrdersDao {
     }
   }
 
-  async assignDeliveryMan(order: string, deliveryMan: DeliveryManForOrderDto) {
+  async assignDeliveryMan(order: string, { deliveryMan }: DeliveryManForOrderDto) {
     try {
-      return await this.orderModel.findByIdAndUpdate(order, {
-        deliveryMan: deliveryMan.id,
-      });
+      return await this.orderModel.findByIdAndUpdate(
+        order,
+        {
+          deliveryMan,
+        },
+        { new: true },
+      );
     } catch (dbErr) {
-      throw new HttpException(httpErrors.findOneOrder, HttpStatus.CONFLICT);
+      throw new HttpException(httpErrors.assignOrder, HttpStatus.CONFLICT);
     }
   }
 
-  async deliveredOrder(order) {
+  async deliveredOrder(order: string) {
     try {
-      return await this.orderModel.findByIdAndUpdate(order, {
-        delivered: true,
-      });
+      return await this.orderModel.findByIdAndUpdate(
+        order,
+        {
+          delivered: true,
+        },
+        { new: true },
+      );
     } catch (dbErr) {
-      throw new HttpException(httpErrors.findOneOrder, HttpStatus.CONFLICT);
+      throw new HttpException(httpErrors.deliveredOrder, HttpStatus.CONFLICT);
     }
   }
 }

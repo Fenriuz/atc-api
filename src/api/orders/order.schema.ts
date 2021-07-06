@@ -31,7 +31,10 @@ export class Order {
   @Prop({ type: mongooseSchema.Types.ObjectId, ref: 'Customer' })
   readonly customer: string;
 
-  @Prop({ type: mongooseSchema.Types.ObjectId, ref: 'DeliveryMan', default: null })
+  @Prop()
+  readonly customer_uid: string;
+
+  @Prop({ type: mongooseSchema.Types.ObjectId, ref: 'DeliveryMan' })
   readonly deliveryMan?: string;
 
   @Prop({ type: Boolean, default: false })
@@ -39,6 +42,9 @@ export class Order {
 
   @Prop({ type: Boolean, default: false })
   readonly delivered?: boolean;
+
+  @Prop({ default: new Date().toISOString() })
+  readonly orderedAt?: Date;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

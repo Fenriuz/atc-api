@@ -1,3 +1,7 @@
+import { IsMongoId, IsNotEmpty } from 'class-validator';
+
 export class DeliveryManForOrderDto {
-  id: string;
+  @IsMongoId()
+  @IsNotEmpty()
+  deliveryMan: string;
 }

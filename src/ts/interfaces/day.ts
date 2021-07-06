@@ -1,4 +1,4 @@
 export class Day {
-  closed: boolean;
-  hours: number[];
+  closed?: boolean;
+  hours?: [number, number];
 }

@@ -96,4 +96,44 @@ export class RestaurantsService {
 
     return newSection;
   }
+
+  // private scheduleToUTC(schedule: Schedule): Schedule {
+  //   const keys = Object.keys(schedule);
+  //   const newSchedule = keys.reduce(
+  //     (acc, key) => {
+  //       const day: Day = schedule[key];
+
+  //       let openHour = day?.hours?.[0] ? day.hours[0] + 360 : null;
+  //       if (openHour > 1440) {
+  //         openHour -= 1440;
+  //       }
+
+  //       let closeHour = day?.hours?.[1] ? day.hours[1] + 360 : null;
+  //       if (openHour > 1440) {
+  //         closeHour -= 1440;
+  //       }
+
+  //       const newHours: [number, number] =
+  //         openHour && closeHour ? [openHour, closeHour] : undefined;
+  //       day.hours = newHours;
+
+  //       acc[key] = {
+  //         [key]: day,
+  //       };
+
+  //       return acc;
+  //     },
+  //     {
+  //       monday: {},
+  //       tuesday: {},
+  //       wednesday: {},
+  //       thursday: {},
+  //       friday: {},
+  //       saturday: {},
+  //       sunday: {},
+  //     },
+  //   );
+
+  //   return newSchedule;
+  // }
 }

@@ -82,9 +82,12 @@ export class CloudinaryService {
     id: string,
   ) {
     try {
+      if (!file || !id) {
+        return;
+      }
       return await this.v2.uploader.upload(file, uploadOptions(id, options));
     } catch (e) {
-      console.log(e);
+      console.log('Cloudinary Error: ', e);
     }
   }
 }
