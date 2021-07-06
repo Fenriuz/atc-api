@@ -14,11 +14,19 @@ export class OrdersService {
     return this.ordersDao.findById(id);
   }
 
-  assignDeliveryMan(order: string, deliveryMan: DeliveryManForOrderDto) {
-    return this.ordersDao.assignDeliveryMan(order, deliveryMan);
+  async assignDeliveryMan(order: string, deliveryMan: DeliveryManForOrderDto) {
+    const updatedOrder = await this.ordersDao.assignDeliveryMan(order, deliveryMan);
+
+    return await this.ordersDao.updateOnFirestore(String(updatedOrder._id), {
+      deliveryMan: updatedOrder.deliveryMan,
+    });
   }
 
-  deliveredOrder(order: string) {
-    return this.ordersDao.deliveredOrder(order);
+  async deliveredOrder(order: string) {
+    const updatedOrder = await this.ordersDao.deliveredOrder(order);
+
+    return await this.ordersDao.updateOnFirestore(String(updatedOrder._id), {
+      delivered: true,
+    });
   }
 }

@@ -42,4 +42,5 @@ export const httpErrors = {
   findOneOrder: `${prefix}could not get the order`,
   assignOrder: `${prefix} could not assign delivery man`,
   deliveredOrder: `${prefix} could not delivered order`,
+  updateOrder: `${prefix} could not update the order`,
 };
