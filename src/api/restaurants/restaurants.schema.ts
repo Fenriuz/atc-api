@@ -47,6 +47,7 @@ export class Restaurant {
   categories?: Category[];
 
   @Prop({
+    default: [],
     type: [
       {
         displayName: String,
